@@ -3,12 +3,11 @@ import useForm from "../../useForm"
 import validate from '../../FormValidationRule'
 import { Link, useNavigate,useLocation } from "react-router-dom"
 import axios from "axios"
-
 import { config } from '../../constant'
 const getRegisterUrl = config.url.API_URL+"/allphanuser"
 
 
-function RegisterPage(props) {
+function Registration(props) {
 	const [inputfocus, setInputfocus] = useState({})
 	const [token, setToken] = useState()
 	
@@ -34,14 +33,12 @@ function RegisterPage(props) {
 		axios.post(getRegisterUrl,data)
 		.then((response) => {			
 			if(response.data.status === 200){
-				console.log(response)
 				const token = response.data.token
 				setToken(token)
                 localStorage.setItem('token',token)
                 navigate("/otp-verification")
 			}else{
 				const errorMessage = response.data.message
-                console.log('errmsg =>',errorMessage)
 			}
 		})
 		.catch(err => {
@@ -144,4 +141,4 @@ function RegisterPage(props) {
   )
 }
 
-export default RegisterPage
+export default Registration

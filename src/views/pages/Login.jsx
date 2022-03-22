@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import Gmail from '../../assets/web_img/gmail.png'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import useForm from '../../useForm'
 import validate from '../../FormValidationRule'
-import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { config } from '../../constant'
 const getRegisterUrl = config.url.API_URL+'/login'
@@ -35,12 +34,12 @@ export default function Login(props) {
 		.then((response) => {
 			if(response.data.status === 200){
                 console.log(response)
-				const token = response.data.token
-				setToken(token)
+				const tokens = response.data.token
+				setToken(tokens)
 				localStorage.setItem('token', token)
                 // alert(response.data.message)
-                alert('login successfull')
-                navigate("/otp-verification")
+                // alert('login successfull')
+                navigate("/profile")
 			}else{
 				const errorMessage = response.data.message
                 console.log('errmsg =>',errorMessage)
@@ -101,7 +100,7 @@ export default function Login(props) {
                 </div>
                 <div>OR</div>
                 <div className='my-3'>
-                    <img src={Gmail}></img>
+                    <img src={Gmail} alt="log in"></img>
                 </div>
                 <button className="btn btns mt-2">Continue</button>
                 <div className='mt-4'>Don't Have an Account? <Link className='clr-p' to="/registration">Register</Link></div>
