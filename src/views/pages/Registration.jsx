@@ -4,12 +4,10 @@ import validate from '../../FormValidationRule'
 import { Link, useNavigate,useLocation } from "react-router-dom"
 import axios from "axios"
 import { config } from '../../constant'
-const getRegisterUrl = "https://allphanesusernode.herokuapp.com/api/users/create"
-
+const getRegisterUrl = config.url.API_URL+"users/create"
 
 function Registration(props) {
 	const [inputfocus, setInputfocus] = useState({})
-	const [token, setToken] = useState()
 	const [errmsg, setErrMsg] = useState()
 	
 	const {
@@ -29,7 +27,6 @@ function Registration(props) {
 			console.table(response.data)			
 			if(response.data.status === 200){
 				const token = response.data.id
-				setToken(token)
                 localStorage.setItem('token',token)
                 navigate("/otp-verification")
 			}else{
