@@ -1,14 +1,17 @@
 import React, {useState} from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate, Navigate } from "react-router-dom"
 import Gmail from '../../assets/web_img/gmail.png'
 import axios from "axios"
 import { config } from '../../constant'
-const getRegisterUrl = config.url.API_URL+'/otpverification'
+const getRegisterUrl = config.url.API_URL+'users/otpverification'
 // import { useEffect } from "react"
 
 export default function OtpVerification(props){
     const [otp, setOtp] = useState(new Array(6).fill(""))
     const navigate = useNavigate()
+
+    if(!localStorage.getItem('token')) return <Navigate to="/login" />
+    
 
     const handleChange = (element, index) => {
         if (isNaN(element.value)) return false
@@ -24,17 +27,21 @@ export default function OtpVerification(props){
         e.preventDefault()
         let token = localStorage.getItem('token')
         let data = {
-            "userToken":token,
+            "id":token,
             "otp" : otp.join("")
         }
         console.log('brodata =>',data)
         axios.post(getRegisterUrl,data)
 		.then((response) => {
+            console.log(response)
 			if(!response.data.status === 200){
                 const errorMessage = response.data.message
                 return console.log('errmsg =>',errorMessage)
 			}
+            // if(response.data.status === 200) return navigate("/profile")
+            
             return alert(response.data.message)
+            // return navigate("/profile")
 		})
 		.catch(err => {
 		    console.log('error=>',err)
@@ -50,6 +57,7 @@ export default function OtpVerification(props){
                     <div className='w-300 my-4 bg-w p_4'>
                         <div className="otp-fields">
                             {otp.map((data, index) => {
+                                console.log(data)
                                 return (
                                     <>
                                         <input

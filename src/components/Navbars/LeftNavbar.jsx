@@ -1,17 +1,10 @@
 // import React,{ useState } from "react"
 import { Link } from "react-router-dom"
-import profilePhoto1 from '../../assets/web_img/profile_1.png'
+import profilePhoto1 from '../../assets/web_img/pro_3.webp'
 
 
 
-function LeftNavbar(props) {
-	// const logout = () => {
-	// 	window.localStorage.clear()
-	// 	window.location.href = process.env.PUBLIC_URL+"/login"
-	// }
-	
-	// const [toggle,setToggle]=useState(0)
-	
+function LeftNavbar(props) {	
 	return (
 		<section id="leftBar">
                             <div className="left-sec-1">
@@ -27,6 +20,8 @@ function LeftNavbar(props) {
                                 <Link to="/profile" className="online-users mt-3">
                                    <div className="online-Profile">
                                         <img src={profilePhoto1} alt="profile not found" />
+                                       {/* <img src={`https://raw.githubusercontent.com/Sakibhaqie/allphanes/main/gellary/image/1647426605429.jpg`} alt="not found"/> */}
+
                                     </div> 
                                    <div className="online-name">Jhon Doe</div>
                                 </Link>

@@ -4,12 +4,13 @@ import validate from '../../FormValidationRule'
 import { Link, useNavigate,useLocation } from "react-router-dom"
 import axios from "axios"
 import { config } from '../../constant'
-const getRegisterUrl = config.url.API_URL+"/allphanuser"
+const getRegisterUrl = "https://allphanesusernode.herokuapp.com/api/users/create"
 
 
 function Registration(props) {
 	const [inputfocus, setInputfocus] = useState({})
 	const [token, setToken] = useState()
+	const [errmsg, setErrMsg] = useState()
 	
 	const {
 		values,
@@ -22,23 +23,17 @@ function Registration(props) {
 	
 	function register() {
 		console.log('No errors, submit callback called!')
-		const data = {
-			"FirstName": values.firstName,
-			"LastName": values.lastName,
-			"Email": values.email,
-			"PhoneNo": values.phone,
-			"Password": values.password
-		}
-		
-		axios.post(getRegisterUrl,data)
-		.then((response) => {			
+	
+		axios.post(getRegisterUrl,values)
+		.then((response) => {
+			console.table(response.data)			
 			if(response.data.status === 200){
-				const token = response.data.token
+				const token = response.data.id
 				setToken(token)
                 localStorage.setItem('token',token)
                 navigate("/otp-verification")
 			}else{
-				const errorMessage = response.data.message
+				setErrMsg(response.data.message)
 			}
 		})
 		.catch(err => {
@@ -48,8 +43,12 @@ function Registration(props) {
   
   return (
     <>
-      <form className="align-center" onSubmit={handleSubmit}>
-			<h3 className='text-center'>Welcome</h3>
+      <form className="items-center" onSubmit={handleSubmit}>
+			<h3 className='text-center mtt-150'>Welcome</h3>
+			{errmsg && 
+			<div className="err-msg">
+				{errmsg}
+			</div>}
 			<div className='reg-div mt-4 mb-2'>
 				<div className="name-div">
 					
@@ -132,7 +131,11 @@ function Registration(props) {
 						value={values.password || ''} />
 					<div className="errors">{!inputfocus.password && errors.password}</div>
 				</div>
+
+				<div className='mt-3'>By continue you are agree to our <Link to="/terms" className='clr-p'>Terms of use</Link> & <Link className='clr-p' to="/privacy">Privacy Policy</Link> </div>
+
 			</div>
+			
 			
 			<button className="btn btns mt-3">Continue</button>
 			<div className="mt-3">Already have an account? goto <Link className="clr-p" to="/login">Sign In</Link></div>

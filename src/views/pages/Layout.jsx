@@ -5,30 +5,21 @@ import { useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 
 
-export default function Layout(props){
+export default function Layout(){
     const location = useLocation()
-    const [data, setData] = useState({})
-
-    const childToParent = (childdata) => {
-        setData(childdata)
-        console.log('email =>',childdata)
-    }
-
-    console.log(location.pathname)
-
     return(
         <div className="Login">
             <div className='container'>
-                <div className='row'>
-                    <div className='col-lg-6 col-md-6 order-lg-1 order-md-1 order-2'>
+                <div className='row align-items-center justify-content-center hxz-100'>
+                    <div className='col-lg-6 order-lg-1 order-3 items-center'>
                         <img src={main_logo} className="main_logo m-hide" alt="logo" />
-                        <img src={Youtube} className="youtube_frame mt-5" alt="logo" />
+                        <div className='youtube-div'>
+                         <img src={Youtube} className="youtube_frame mt-5" alt="logo" />
+                        </div>
                     </div>
-                    <div className='col-lg-6 col-md-6 order-lg-2 order-md-2 order-1 hxz-100'>
+                    <div className="col-1 order-2"></div>
+                    <div className='col-lg-5 order-lg-3 order-md-3 order-1'>
                         <img src={main_logo} className="main_logo m-show" alt="logo" />
-                        {/* {location.pathname === '/registration' && <Registration childToParent={childToParent} />}
-                        {location.pathname === '/otp-verification' && <OtpVerification email = {data} />}
-                        {location.pathname === '/login' && <Login />} */}
                         <Outlet />
                     </div>
                 </div>
