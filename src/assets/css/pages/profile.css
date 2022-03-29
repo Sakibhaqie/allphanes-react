@@ -340,3 +340,12 @@ a {
         max-height: 600px;
     }
 }
+
+.err-msg2{
+    width: 100%;
+    background-color: #C4C4C4;
+    color: red;
+    padding: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+}

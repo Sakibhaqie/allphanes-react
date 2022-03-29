@@ -89,7 +89,7 @@ function Profile() {
             {/* <div>{posts}</div> */}
             {/* //loop this  */}
             
-            {posts && posts.map(item => {
+            {/* {posts && posts.map(item => {
 
                 return (
                     
@@ -108,7 +108,7 @@ function Profile() {
                         </div>
                     </div>
                 )
-            })} 
+            })}  */}
             <div className="view-post pb-3 mt-3">
                 <div className="post-creator">
                     <Link to="/profile" className="posted-user">
